@@ -52,6 +52,7 @@ import {
   openAIToAnthropic,
   openAIToGemini,
   openAIToOpenAI,
+  openAIRequestToAnthropic,
   type ServedModel,
 } from './lib/wire.ts';
 
@@ -219,7 +220,7 @@ function upstreamUrl(state: ProviderState, modelId: string, stream: boolean): st
 /** The upstream request body for one (client wire, provider wire) pair, naming the routed model. */
 function upstreamBody(clientWire: 'openai' | 'anthropic', providerWire: string, body: Json, modelId: string): Json {
   if (providerWire === 'openai') return clientWire === 'openai' ? openAIToOpenAI(body, modelId) : anthropicToOpenAI(body, modelId);
-  if (providerWire === 'anthropic') return clientWire === 'openai' ? openAIToAnthropic(body, modelId) : anthropicToAnthropic(body, modelId);
+  if (providerWire === 'anthropic') return clientWire === 'openai' ? openAIRequestToAnthropic(body, modelId) : anthropicToAnthropic(body, modelId);
   return clientWire === 'openai' ? openAIToGemini(body) : anthropicToGemini(body);
 }
 

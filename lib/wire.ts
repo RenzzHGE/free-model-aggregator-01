@@ -462,7 +462,7 @@ function anthropicBlockOf(part: Json): Json | null {
  * through. Anthropic carries no JSON mode, so no response_format is ever sent: callers must not route
  * a JSON-mode request to an anthropic-wire provider.
  */
-export function openAIToAnthropic(body: Json, model: string): Json {
+export function openAIRequestToAnthropic(body: Json, model: string): Json {
   const messages: Json[] = [];
   let system = '';
   const source = Array.isArray(body.messages) ? body.messages : [];
